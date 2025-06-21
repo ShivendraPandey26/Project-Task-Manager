@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { workspaceSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
@@ -45,7 +45,7 @@ function WorkspaceForm() {
   const onSubmit = async (data: CreateWorkspaceDataType) => {
     try {
       setPending(true);
-      const {data: res} = await createNewWorkspace(data);
+      const { data: res } = await createNewWorkspace(data);
 
       toast.success("Workspace Created successfully");
       router.push(`/workspace/${res?.id as string}`);
@@ -106,18 +106,18 @@ function WorkspaceForm() {
                 )}
               />
 
-              <CardFooter  className="flex flex-col items-center justify-center gap-4">
-                  <Button
-                    type="button"
-                    variant={"outline"}
-                    disabled={pending}
-                    className="w-full"
-                  >
-                    Cancel
-                  </Button>
-                  <Button type="submit" disabled={pending} className="w-full">
-                    {pending ? "Creating..." : "Create Workspace"}
-                  </Button>
+              <CardFooter className="flex flex-col items-center justify-center gap-4">
+                <Button
+                  type="button"
+                  variant={"outline"}
+                  disabled={pending}
+                  className="w-full"
+                >
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={pending} className="w-full">
+                  {pending ? "Creating..." : "Create Workspace"}
+                </Button>
               </CardFooter>
             </form>
           </Form>
