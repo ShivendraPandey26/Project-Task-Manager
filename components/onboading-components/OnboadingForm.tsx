@@ -5,7 +5,14 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 import {
   Card,
   CardHeader,
@@ -89,7 +96,7 @@ function OnboardingForm({ name, email, image }: OnboardingFormProps) {
                         id="name"
                         placeholder="Enter your name"
                         {...field}
-                        // disabled={pending}
+                        disabled={pending}
                       />
                     </FormControl>
                     <FormMessage />
@@ -107,7 +114,7 @@ function OnboardingForm({ name, email, image }: OnboardingFormProps) {
                         id="email"
                         placeholder="Enter your email"
                         {...field}
-                        // disabled={pending}
+                        disabled={pending}
                       />
                     </FormControl>
                     <FormMessage />
@@ -123,6 +130,7 @@ function OnboardingForm({ name, email, image }: OnboardingFormProps) {
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
+                      disabled={pending}
                     >
                       <FormControl>
                         <SelectTrigger id="country" className="w-full">
@@ -152,7 +160,7 @@ function OnboardingForm({ name, email, image }: OnboardingFormProps) {
                 )}
               />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                 <FormField
+                <FormField
                   control={form.control}
                   name="industryType"
                   render={({ field }) => (
@@ -163,6 +171,7 @@ function OnboardingForm({ name, email, image }: OnboardingFormProps) {
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
+                        disabled={pending}
                       >
                         <FormControl>
                           <SelectTrigger id="industryType" className="w-full">
@@ -190,6 +199,7 @@ function OnboardingForm({ name, email, image }: OnboardingFormProps) {
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
+                        disabled={pending}
                       >
                         <FormControl>
                           <SelectTrigger id="role" className="w-full">
@@ -208,7 +218,6 @@ function OnboardingForm({ name, email, image }: OnboardingFormProps) {
                     </FormItem>
                   )}
                 />
-               
               </div>
               <FormField
                 control={form.control}
@@ -217,7 +226,12 @@ function OnboardingForm({ name, email, image }: OnboardingFormProps) {
                   <FormItem>
                     <FormLabel htmlFor="about">Bio</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder="Tell us about yourself" className="resize-none" />
+                      <Textarea
+                        {...field}
+                        placeholder="Tell us about yourself"
+                        className="resize-none"
+                        disabled={pending}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
