@@ -21,3 +21,13 @@ export const userSchema = z.object({
     industryType: z.string().min(1, "Industry Type is required"),
     role: z.string().min(1, "Role is required")
 });
+
+// This schema is used to validate workspace data in the application
+export const workspaceSchema = z.object({
+    name: z
+        .string()
+        .min(1, "Workspace name is required")
+        .max(100, "Workspace name must be less than 100 characters"),
+    description: z
+        .string().optional()
+});
