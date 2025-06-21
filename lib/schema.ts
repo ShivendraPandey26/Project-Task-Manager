@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+// This schema is used to validate user data in the application
+// It ensures that the user data meets the required criteria before processing
+// If the data does not meet the criteria, an error will be thrown with the specified message
 export const userSchema = z.object({
     name: z
         .string()
