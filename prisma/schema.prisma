@@ -50,7 +50,7 @@ enum AccessLevel {
 model WorkspaceMember {
   id          String   @id @default(uuid())
   userId      String
-  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade) 
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade) 
 
   workspaceId String
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
@@ -88,10 +88,10 @@ model Project {
 model ProjectAccess {
   id          String   @id @default(uuid())
   workspaceMemberId String
-  WorkspaceMember WorkspaceMember @relation(fields: [workspaceMemberId], references: [id], onDelete: Cascade)
+  workspaceMember WorkspaceMember @relation(fields: [workspaceMemberId], references: [id], onDelete: Cascade)
 
   projectId   String
-  Project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   hasAccess   Boolean   @default(false)
 
@@ -152,7 +152,7 @@ model Activity {
   project     Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
 
   userId      String
-  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -166,10 +166,10 @@ model Comment {
   content     String
 
   projectId   String?
-  Project     Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  project     Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
 
   userId      String
-  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -183,7 +183,7 @@ model Documentation {
   content     String
 
   projectId   String
-  Project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   updatedBy   String?
 
@@ -205,7 +205,7 @@ model File {
   fileType    FileType
 
   taskId      String?
-  Task        Task?    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  task        Task?    @relation(fields: [taskId], references: [id], onDelete: Cascade)
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -227,7 +227,7 @@ enum SubscriptionStatus {
 model Subscription {
   id          String   @id @default(uuid())
   userId      String
-  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   plan        SubscriptionPlan @default(FREE)
   status      SubscriptionStatus @default(ACTIVE)
