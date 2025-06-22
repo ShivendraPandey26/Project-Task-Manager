@@ -2,12 +2,19 @@ import React from "react";
 import { AppSidebarDataProps } from "./app-sidebar-container";
 import { User } from "@prisma/client";
 import { ProjectProps, WorkspaceMembersProps } from "@/utils/types";
-import { Sidebar, SidebarGroupLabel, SidebarHeader } from "../ui/sidebar";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+} from "../ui/sidebar";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import WorkspaceSelector from "./workspace-selector";
+import NavMain from "./nav-main";
+import NavProjects from "./nav-project";
 
 const AppSidebar = ({
   data,
@@ -50,6 +57,14 @@ const AppSidebar = ({
 
           <WorkspaceSelector workspaces={data.workspaces} />
         </SidebarHeader>
+
+        <SidebarContent>
+          <NavMain />
+          <NavProjects
+            projects={projects}
+            workspaceMembers={workspaceMembers}
+          />
+        </SidebarContent>
       </Sidebar>
     </>
   );
