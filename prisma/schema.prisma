@@ -82,7 +82,7 @@ model Project {
 
   documentation Documentation[]
 
-  @@unique([workspaceId])
+  @@index([workspaceId])
 }
 
 model ProjectAccess {
