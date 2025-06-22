@@ -31,3 +31,12 @@ export const workspaceSchema = z.object({
     description: z
         .string().optional()
 });
+
+export const projectSchema = z.object({
+    name: z
+        .string()
+        .min(3, { message: "Workspace name must be atleast 3 characters" }),
+    workspaceId: z.string(),
+    description: z.string().optional(),
+    memberAccess: z.array(z.string()).optional(),
+})

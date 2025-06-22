@@ -1,6 +1,6 @@
-import { $Enums, AccessLevel, Workspace } from "@prisma/client";
+import { $Enums, AccessLevel, WorkspaceMember } from "@prisma/client";
 
-export interface WorkspaceMembersProps extends Workspace {
+export interface WorkspaceMembersProps extends WorkspaceMember {
     user: {
         id: string;
         name: string;
