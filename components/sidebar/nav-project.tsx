@@ -43,7 +43,7 @@ const NavProjects = ({
                     href={href}
                     className={
                       pathName === href
-                        ? "text-primary-foreground font-semibold"
+                        ? "text-blue-600 font-semibold"
                         : "text-muted-foreground"
                     }
                   >
