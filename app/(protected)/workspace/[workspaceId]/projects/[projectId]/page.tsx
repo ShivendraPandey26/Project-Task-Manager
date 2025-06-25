@@ -15,7 +15,7 @@ const ProjectPage = async (props: ProjectPageProps) => {
   const searchParams = await props.searchParams;
 
   const { project, tasks, comments, totalWorkspaceMembers, activities } =
-    await getProjectDetails(workspaceId, projectId);
+    await getProjectDetails(projectId, workspaceId);
 
   return (
     <div className="flex flex-col gap-6 pb-3 px-3">
