@@ -1,3 +1,4 @@
+"use server"
 import { db } from "@/lib/db";
 import { userRequired } from "../user/is-user-authenticated";
 import { TaskStatus } from "@prisma/client";
@@ -10,21 +11,26 @@ export const getProjectDetails = async (
 
         const { user } = await userRequired();
 
-        const [isUserMember, totalWorkspaceMembers] = await Promise.all([
-            db.workspaceMember.findUnique({
-                where: {
-                    userId_workspaceId: {
-                        userId: user?.id as string,
-                        workspaceId,
-                    },
+        console.log({ userId: user?.id });
+        console.log({ workspaceId });
+
+
+        const isUserMember = await db.workspaceMember.findUnique({
+            where: {
+                userId_workspaceId: {
+                    userId: user?.id as string,
+                    workspaceId,
                 },
-            }),
-            db.workspaceMember.count({
-                where: {
-                    workspaceId
-                },
-            }),
-        ]);
+            },
+        });
+
+        const totalWorkspaceMembers = await db.workspaceMember.count({
+            where: {
+                workspaceId
+            }
+        });
+        console.log({ isUserMember, totalWorkspaceMembers });
+
 
 
         if (!isUserMember) {
@@ -104,6 +110,9 @@ export const getProjectDetails = async (
             }),
         ]);
 
+        console.log(project, comments);
+
+
         const tasks = {
             total: project?.tasks.length,
             completed: project?.tasks.filter((task) => task.status === TaskStatus.COMPLETED).length,
@@ -111,6 +120,9 @@ export const getProjectDetails = async (
             overdue: project?.tasks.filter((task) => task.status !== TaskStatus.COMPLETED && task.dueDate && new Date(task.dueDate) < new Date()).length,
             items: project?.tasks,
         }
+
+        console.log(project);
+
 
         return {
             project: {
