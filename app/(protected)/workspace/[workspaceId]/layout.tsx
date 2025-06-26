@@ -3,6 +3,7 @@ import { getUserWorkspace } from "../../data/workspace/get-user-workspace";
 import { redirect } from "next/navigation";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebarContainer } from "@/components/sidebar/app-sidebar-container";
+import Navbar from "@/components/navbar";
 
 interface Props {
   children: React.ReactNode;
@@ -28,12 +29,12 @@ const WorkspaceIdLayout = async ({ children, params }: Props) => {
         <main className="w-full min-h-screen overflow-y-auto">
           <div className="flex items-start">
             <SidebarTrigger className="pt-3" />
-            {/* <Navbar
+            <Navbar
               id={data?.id as string}
               name={data?.name as string}
               email={data?.email as string}
               image={data?.image as string}
-            /> */}
+            />
           </div>
           <div className="p-0 md:p-4 pt-2">{children}</div>
         </main>
