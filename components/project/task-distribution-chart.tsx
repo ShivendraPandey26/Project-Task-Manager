@@ -68,7 +68,7 @@ const TaskDistributionChart = ({ tasks }: TaskDistributionProps) => {
     },
   ].filter((item) => item.value > 0);
   return (
-    <Card className="flex flex-col bg-slate-200">
+    <Card className="flex flex-col">
       <CardHeader>
         <CardTitle className="font-semibold text-xl">
           Task Distribution
