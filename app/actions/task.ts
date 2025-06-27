@@ -4,6 +4,7 @@ import { TaskDataValues } from "@/components/task/create-task-dialog"
 import { userRequired } from "../(protected)/data/user/is-user-authenticated"
 import { taskFormSchema } from "@/lib/schema";
 import { db } from "@/lib/db";
+import { TaskStatus } from "@prisma/client";
 
 export const createNewTask = async (
     data: TaskDataValues,
@@ -69,4 +70,18 @@ export const createNewTask = async (
     return {
         success: true
     }
+}
+
+export const updateTaskPosition = async (taskId: string, newPosition: number, status: TaskStatus) => {
+    await userRequired();
+
+    return await db.task.update({
+        where: {
+            id: taskId
+        },
+        data: {
+            position: newPosition,
+            status,
+        },
+    })
 }
