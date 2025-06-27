@@ -11,10 +11,6 @@ export const getProjectDetails = async (
 
         const { user } = await userRequired();
 
-        console.log({ userId: user?.id });
-        console.log({ workspaceId });
-
-
         const isUserMember = await db.workspaceMember.findUnique({
             where: {
                 userId_workspaceId: {
@@ -29,9 +25,6 @@ export const getProjectDetails = async (
                 workspaceId
             }
         });
-        console.log({ isUserMember, totalWorkspaceMembers });
-
-
 
         if (!isUserMember) {
             throw new Error('User is not a member of the workspace');
@@ -110,9 +103,6 @@ export const getProjectDetails = async (
             }),
         ]);
 
-        console.log(project, comments);
-
-
         const tasks = {
             total: project?.tasks.length,
             completed: project?.tasks.filter((task) => task.status === TaskStatus.COMPLETED).length,
@@ -120,9 +110,6 @@ export const getProjectDetails = async (
             overdue: project?.tasks.filter((task) => task.status !== TaskStatus.COMPLETED && task.dueDate && new Date(task.dueDate) < new Date()).length,
             items: project?.tasks,
         }
-
-        console.log(project);
-
 
         return {
             project: {
