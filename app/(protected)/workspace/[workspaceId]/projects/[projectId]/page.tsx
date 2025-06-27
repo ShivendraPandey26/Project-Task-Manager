@@ -1,8 +1,9 @@
 import { getProjectDetails } from "@/app/(protected)/data/project/get-project-details";
 import ProjectDashboard from "@/components/project/project-dashboard";
+import ProjectKanban from "@/components/project/Project-Kanban";
 import ProjectTableContainer from "@/components/project/project-table-container";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CommentProps, ProjectProps } from "@/utils/types";
+import { CommentProps, ProjectProps, ProjectTasksProps } from "@/utils/types";
 import Link from "next/link";
 import React from "react";
 
@@ -54,7 +55,11 @@ const ProjectPage = async (props: ProjectPageProps) => {
         <TabsContent value="table">
           <ProjectTableContainer projectId={projectId} />
         </TabsContent>
-        <TabsContent value="kanban">Kanban</TabsContent>
+        <TabsContent value="kanban">
+          <ProjectKanban
+            initialTasks={tasks?.items as unknown as ProjectTasksProps[]}
+          />
+        </TabsContent>
       </Tabs>
     </div>
   );
