@@ -42,6 +42,7 @@ import { taskStats } from "@/utils/taskStats";
 import { Textarea } from "../ui/textarea";
 import { toast } from "sonner";
 import { createNewTask } from "@/app/actions/task";
+import FileUpload from "../workspace/FileUpload";
 
 export type TaskDataValues = z.infer<typeof taskFormSchema>;
 
@@ -300,6 +301,23 @@ const CreateTaskDialog = ({ project }: { project: ProjectProps }) => {
                       placeholder="Add your description..."
                       {...field}
                       rows={4}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="attachments"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Attachments</FormLabel>
+                  <FormControl>
+                    <FileUpload
+                      value={field.value || []}
+                      onChange={field.onChange}
                     />
                   </FormControl>
                   <FormMessage />
