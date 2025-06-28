@@ -41,7 +41,7 @@ export const ourFileRouter = {
         }),
 
     documentUploader: f({
-        image: {
+        "application/pdf": {
             /**
              * For full list of options and defaults, see the File Route API reference
              * @see https://docs.uploadthing.com/file-routes#route-config
