@@ -85,3 +85,70 @@ export const updateTaskPosition = async (taskId: string, newPosition: number, st
         },
     })
 }
+
+
+export const updateTask = async (
+    taskId: string,
+    data: TaskDataValues,
+    projectId: string,
+    workspaceId: string
+) => {
+    const { user } = await userRequired();
+
+    const validatedData = taskFormSchema.parse(data);
+
+    const isUserMember = await db.workspaceMember.findUnique({
+        where: {
+            userId_workspaceId: {
+                userId: user?.id as string,
+                workspaceId,
+            }
+        }
+    });
+
+    if (!isUserMember) {
+        throw new Error('Unauthorized to create task in this workspace');
+    }
+
+    const projectAccess = await db.projectAccess.findUnique({
+        where: {
+            workspaceMemberId_projectId: {
+                workspaceMemberId: isUserMember.id,
+                projectId,
+            },
+        },
+    });
+
+    if (!projectAccess) {
+        throw new Error('Unauthorized to create task in this project');
+    }
+
+    const task = await db.task.update({
+        where: {
+            id: taskId
+        },
+        data: {
+            title: validatedData.title,
+            description: validatedData.description,
+            startDate: new Date(validatedData.startDate),
+            dueDate: new Date(validatedData.dueDate),
+            assigneeId: validatedData.assigneeId,
+            status: validatedData.status,
+            priority: validatedData.priority,
+        },
+    });
+
+    await db.activity.create({
+        data: {
+            type: 'TASK_CREATED',
+            description: `updated task "${validatedData.title}"`,
+            userId: user?.id as string,
+            projectId,
+
+        }
+    });
+
+    return {
+        success: true
+    }
+}
