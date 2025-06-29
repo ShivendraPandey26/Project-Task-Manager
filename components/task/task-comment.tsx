@@ -43,8 +43,6 @@ const TaskComment = ({ taskId, comments }: TaskCommentsProps) => {
     }
   };
 
-  console.log({ comments });
-
   return (
     <Card className="w-full">
       <CardHeader>
