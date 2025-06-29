@@ -79,8 +79,9 @@ const EditTaskDialog = ({ key, task, project }: Props) => {
       await updateTask(task.id, data, project.id, workspaceId as string);
 
       toast.success("Task updated successfully");
-      router.refresh();
       form.reset();
+      setOpen(false);
+      router.refresh();
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
@@ -90,7 +91,7 @@ const EditTaskDialog = ({ key, task, project }: Props) => {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant={"outline"}>
           <Pencil />

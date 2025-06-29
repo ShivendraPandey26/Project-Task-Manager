@@ -72,8 +72,9 @@ const CreateTaskDialog = ({ project }: { project: ProjectProps }) => {
       await createNewTask(data, project.id, workspaceId as string);
 
       toast.success("New task create successfully");
-      router.refresh();
       form.reset();
+      setOpen(false);
+      router.refresh();
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
@@ -83,7 +84,7 @@ const CreateTaskDialog = ({ project }: { project: ProjectProps }) => {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>Create Task</Button>
       </DialogTrigger>

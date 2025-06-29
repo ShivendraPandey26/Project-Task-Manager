@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -41,6 +42,7 @@ export type ProjectDataType = z.infer<typeof projectSchema>;
 const CreateProjectForm = ({ workspaceMembers }: Props) => {
   const workspaceId = useWorkspaceId();
   const [pending, setPending] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const router = useRouter();
 
@@ -60,6 +62,7 @@ const CreateProjectForm = ({ workspaceMembers }: Props) => {
       await createNewProject(data);
       form.reset();
       toast.success("Project created successfully");
+      setOpen(false);
       router.refresh();
     } catch (error) {
       console.log(error);
@@ -71,14 +74,14 @@ const CreateProjectForm = ({ workspaceMembers }: Props) => {
 
   return (
     <>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button size={"icon"} className="size-5 cursor-pointer">
             <Plus />
           </Button>
         </DialogTrigger>
         <DialogContent>
-          <Card className="w-full max-w-md">
+          <Card className="w-full max-w-md bg-background p-5">
             <DialogHeader>
               <DialogTitle>Create a New Project</DialogTitle>
             </DialogHeader>
@@ -181,14 +184,16 @@ const CreateProjectForm = ({ workspaceMembers }: Props) => {
                 </div>
 
                 <CardFooter className="flex flex-col items-center justify-center gap-4">
-                  <Button
-                    type="button"
-                    variant={"outline"}
-                    disabled={pending}
-                    className="w-full"
-                  >
-                    Cancel
-                  </Button>
+                  <DialogClose asChild>
+                    <Button
+                      variant={"outline"}
+                      type="button"
+                      disabled={pending}
+                      className="w-full"
+                    >
+                      Cancel
+                    </Button>
+                  </DialogClose>
                   <Button type="submit" disabled={pending} className="w-full">
                     {pending ? "Creating..." : "Create Project"}
                   </Button>
