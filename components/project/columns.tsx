@@ -17,6 +17,9 @@ import {
 } from "../ui/dropdown-menu";
 import { AvatarImage } from "../ui/avatar";
 import ProfileAvatar from "../profile-avatar";
+import { toast } from "sonner";
+import { deleteTask } from "@/app/actions/task";
+import { useRouter } from "next/navigation";
 
 export type TaskTableItem = {
   id: string;
@@ -164,6 +167,24 @@ export const columns: ColumnDef<TaskTableItem>[] = [
     accessorKey: "actions",
     header: "Actions",
     cell: ({ row }) => {
+      const router = useRouter();
+
+      const handleDeleteTask = (taskId: string, workspaceId: string) => {
+        try {
+          deleteTask(taskId, workspaceId);
+          router.refresh();
+          toast.success("Task deleted successfully");
+        } catch (error) {
+          console.log(error);
+          if (error instanceof Error && error.message !== "NEXT_REDIRECT") {
+            toast.error(
+              error instanceof Error
+                ? error.message
+                : "Something went wrong. Please try again."
+            );
+          }
+        }
+      };
       return (
         <div>
           <DropdownMenu>
@@ -180,9 +201,17 @@ export const columns: ColumnDef<TaskTableItem>[] = [
                   View Task
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                Delete Task
-                {/* <DeleteTask taskId={row.original.id} /> */}
+              <DropdownMenuItem>
+                <h1
+                  onClick={() =>
+                    handleDeleteTask(
+                      row.original.id,
+                      row.original.project.workspaceId
+                    )
+                  }
+                >
+                  Delete Task
+                </h1>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -324,6 +353,25 @@ export const myTaskColumns: ColumnDef<TaskTableItem>[] = [
     accessorKey: "actions",
     header: "Actions",
     cell: ({ row }) => {
+      const router = useRouter();
+
+      const handleDeleteTask = (taskId: string, workspaceId: string) => {
+        try {
+          deleteTask(taskId, workspaceId);
+          router.refresh();
+          toast.success("Task deleted successfully");
+        } catch (error) {
+          console.log(error);
+          if (error instanceof Error && error.message !== "NEXT_REDIRECT") {
+            toast.error(
+              error instanceof Error
+                ? error.message
+                : "Something went wrong. Please try again."
+            );
+          }
+        }
+      };
+
       return (
         <div>
           <DropdownMenu>
@@ -341,8 +389,16 @@ export const myTaskColumns: ColumnDef<TaskTableItem>[] = [
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                Delete Task
-                {/* <DeleteTask taskId={row.original.id} /> */}
+                <h1
+                  onClick={() =>
+                    handleDeleteTask(
+                      row.original.id,
+                      row.original.project.workspaceId
+                    )
+                  }
+                >
+                  Delete Task
+                </h1>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
