@@ -52,6 +52,7 @@ export const getTaskById = async (
                         id: true,
                         name: true,
                         url: true,
+                        fileType: true,
                     },
                 },
                 project: {
