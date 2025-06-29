@@ -4,7 +4,7 @@ import { TaskDataValues } from "@/components/task/create-task-dialog"
 import { userRequired } from "../(protected)/data/user/is-user-authenticated"
 import { taskFormSchema } from "@/lib/schema";
 import { db } from "@/lib/db";
-import { TaskStatus } from "@prisma/client";
+import { AccessLevel, TaskStatus } from "@prisma/client";
 
 export const createNewTask = async (
     data: TaskDataValues,
@@ -162,4 +162,31 @@ export const updateTask = async (
     return {
         success: true
     }
+}
+
+export const deleteTask = async (taskId: string, workspaceId: string) => {
+    const { user } = await userRequired();
+
+    const isUserMember = await db.workspaceMember.findUnique({
+        where: {
+            userId_workspaceId: {
+                userId: user?.id as string,
+                workspaceId,
+            }
+        }
+    });
+
+    if (!isUserMember) {
+        throw new Error('Unauthorized to create task in this workspace');
+    }
+
+    if (isUserMember && isUserMember.accessLevel !== AccessLevel.OWNER) {
+        throw new Error("Only the owner of the workspace can delete it.");
+    }
+
+    await db.task.delete({
+        where: {
+            id: taskId
+        },
+    })
 }
