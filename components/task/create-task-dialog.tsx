@@ -88,7 +88,7 @@ const CreateTaskDialog = ({ project }: { project: ProjectProps }) => {
         <Button>Create Task</Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="h-[90vh] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>Create Task</DialogTitle>
         </DialogHeader>
