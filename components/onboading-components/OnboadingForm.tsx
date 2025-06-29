@@ -64,11 +64,18 @@ function OnboardingForm({ name, email, image }: OnboardingFormProps) {
     try {
       setPending(true);
       await createUser(data);
-      setPending(false);
       toast.success("Onboarding completed successfully!");
     } catch (error) {
       console.log("Error submitting form:", error);
-      toast.error("Something went wrong. Try again.");
+      if (error instanceof Error && error.message !== "NEXT_REDIRECT") {
+        toast.error(
+          error instanceof Error
+            ? error.message
+            : "Something went wrong. Please try again."
+        );
+      }
+    } finally {
+      setPending(false);
     }
   };
 
