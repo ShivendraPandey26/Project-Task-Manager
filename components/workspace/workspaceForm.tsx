@@ -108,14 +108,10 @@ function WorkspaceForm() {
 
               <CardFooter className="flex flex-col items-center justify-center gap-4">
                 <Button
-                  type="button"
-                  variant={"outline"}
+                  type="submit"
                   disabled={pending}
-                  className="w-full"
+                  className="w-full my-5"
                 >
-                  Cancel
-                </Button>
-                <Button type="submit" disabled={pending} className="w-full">
                   {pending ? "Creating..." : "Create Workspace"}
                 </Button>
               </CardFooter>
