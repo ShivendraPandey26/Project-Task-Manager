@@ -57,6 +57,17 @@ export const createNewTask = async (
         }
     });
 
+    if (validatedData.attachments && validatedData?.attachments.length > 0) {
+        await db.file.createMany({
+            data: validatedData.attachments.map((file) => ({
+                name: file.name,
+                url: file.url,
+                fileType: file.type,
+                taskId: task.id,
+            }))
+        });
+    }
+
     await db.activity.create({
         data: {
             type: 'TASK_CREATED',
