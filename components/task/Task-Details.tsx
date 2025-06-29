@@ -100,8 +100,8 @@ const TaskDetails = ({ task }: TaskProps) => {
                   src={file.fileType === "IMAGE" ? file.url : "/pdf.png"}
                   alt={"attachments"}
                   width={80}
-                  height={80}
-                  className="w-full h-32 object-cover rounded-lg"
+                  height={120}
+                  className="w-full h-32 object-contain rounded-lg"
                 />
 
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
