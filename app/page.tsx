@@ -12,24 +12,23 @@ export default async function Home() {
 
   return (
     <main className="w-full h-screen flex flex-col items-center justify-center px-6 text-center bg-gradient-to-br from-slate-100 to-white dark:from-gray-900 dark:to-gray-800 transition-colors">
-      <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
-        Welcome to the Project Task Manager
+      <h1 className="text-4xl sm:text-8xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4 capitalize">
+        Welcome to the Taskly
       </h1>
 
-      <div className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 space-y-2 mb-6">
+      <div className="text-lg sm:text-3xl text-gray-600 dark:text-gray-300 sm:space-y-2 mb-6">
         <p>Your one-stop solution</p>
         <p>
           for{" "}
-          <span className="font-semibold text-indigo-600 dark:text-indigo-400">
-            managing tasks and projects efficiently.
+          <span className="font-bold text-indigo-600 dark:text-indigo-400 capitalize">
+            Managing tasks and projects efficiently.
           </span>
         </p>
       </div>
 
       <p className="max-w-xl text-sm sm:text-base text-gray-500 dark:text-gray-400 mb-8">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga
-        consequuntur optio est quam veniam provident ipsa reprehenderit at
-        reiciendis nulla?
+        Organize your projects, tasks, and goals in one place. Stay focused and
+        achieve more with your personal command center.
       </p>
 
       {isUserAuthenticated ? (
@@ -39,7 +38,7 @@ export default async function Home() {
           </Button>
         </>
       ) : (
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-10">
           <Button asChild className="px-6 py-2 text-base">
             <LoginLink>Login</LoginLink>
           </Button>
