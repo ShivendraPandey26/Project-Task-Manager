@@ -1,7 +1,6 @@
 import { db } from "@/lib/db";
 import { userRequired } from "../user/is-user-authenticated";
-import { Prisma } from "@prisma/client";
-import { AccessLevel } from "@/src/generated/prisma";
+import { Prisma, AccessLevel } from "@prisma/client";
 
 export const getWorkspaceProjectsByWorkspaceId = async (workspaceId: string) => {
     try {
@@ -59,10 +58,9 @@ export const getWorkspaceProjectsByWorkspaceId = async (workspaceId: string) => 
     } catch (error) {
         console.log(error);
         return {
-            sucess: false,
+            success: false, // Fixed typo: "sucess" → "success"
             error: true,
             message: "Internal server error"
         }
-
     }
 }
