@@ -27,7 +27,7 @@ It allows users to create, organize, and manage their tasks or projects efficien
 
 ## 🌐 Live Demo
 
-🔗 [View Live Project](https://taskly-ipp1.onrender.com/)
+🔗 [View Live Project](https://taskly-shivendra.vercel.app/)
 
 ---
 
